@@ -10,15 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
-import environ
+#import environ
 from pathlib import Path
+import dj_database_url
 
 
 from django.contrib.messages import constants as messages #used for messages 
 
 #environ used to hide secrrqt keys etc 
-env = environ.Env()
-env.read_env()
+#env = environ.Env()
+#env.read_env() 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,12 +30,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+#SECRET_KEY = env('SECRET_KEY')
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(env('DEBUG'))
 
-ALLOWED_HOSTS = ['*']
+#DEBUG = bool(env('DEBUG'))
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
+
+#ALLOWED_HOSTS = ['*']
+allowed_hosts = os.environ.get("ALLOWED_HOSTS")
+ALLOWED_HOSTS = allowed_hosts.split(" ") if allowed_hosts else []
+#ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -92,7 +101,15 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+#for deployment by arjun 
 
+
+#database_url = os.environ.get("DATABASE_URL")
+#DATABASES["default"] = dj_database_url.parse(database_url)
+
+database_url = os.environ.get("DATABASE_URL", "postgresql://postgre_tuk_user:UV88HjkvNp0f9dhNwObBm3z2ce3CIYf9@dpg-cr2q8uaj1k6c73ebvmd0-a.oregon-postgres.render.com/postgre_tuk")
+
+#postgresql://postgre_tuk_user:UV88HjkvNp0f9dhNwObBm3z2ce3CIYf9@dpg-cr2q8uaj1k6c73ebvmd0-a.oregon-postgres.render.com/postgre_tuk
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
