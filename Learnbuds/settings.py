@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
-#import environ
+import environ
 from pathlib import Path
 import dj_database_url
 
@@ -96,19 +96,27 @@ WSGI_APPLICATION = "Learnbuds.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
+#DATABASES = {
  #   "default": {
-  #      "ENGINE": "django.db.backends.sqlite3",
-   #     "NAME": BASE_DIR / "db.sqlite3",
-    #}
+ #       "ENGINE": "django.db.backends.sqlite3",
+  #      "NAME": BASE_DIR / "db.sqlite3",
+   # }
 #}
 #for deployment by arjun 
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
+
+
+
 
 
 #database_url = os.environ.get("DATABASE_URL")
 #DATABASES["default"] = dj_database_url.parse(database_url)
 
-database_url = os.environ.get("DATABASE_URL", "postgresql://postgre_tuk_user:UV88HjkvNp0f9dhNwObBm3z2ce3CIYf9@dpg-cr2q8uaj1k6c73ebvmd0-a.oregon-postgres.render.com/postgre_tuk")
+#database_url = os.environ.get("DATABASE_URL", "postgresql://postgre_tuk_user:UV88HjkvNp0f9dhNwObBm3z2ce3CIYf9@dpg-cr2q8uaj1k6c73ebvmd0-a.oregon-postgres.render.com/postgre_tuk")
 
 #postgresql://postgre_tuk_user:UV88HjkvNp0f9dhNwObBm3z2ce3CIYf9@dpg-cr2q8uaj1k6c73ebvmd0-a.oregon-postgres.render.com/postgre_tuk
 
