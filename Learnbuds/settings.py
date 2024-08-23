@@ -69,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware'#used to load static
 ]
 
 ROOT_URLCONF = "Learnbuds.urls"
@@ -157,8 +158,9 @@ MESSAGE_TAGS ={
     messages.ERROR : 'danger'
 }
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
