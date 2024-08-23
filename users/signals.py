@@ -7,7 +7,7 @@ from .models import Profile
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+    if created and not instance.is_superuser:
         Profile.objects.create(user=instance)
 
 
