@@ -60,7 +60,7 @@ class RegisterView(View):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('register')
+    return redirect('home')
 
 
 
